@@ -11,26 +11,10 @@ public class PlayGameMain {
 		int choice = 0;
 		boolean loginResult = false;
 		String num;
-
-		lm.readUserFromFile();
-		while (loginResult == false) {
-			MenuViewer.loginMenu();
-			choice = Integer.parseInt(GameConst.sc.nextLine());
-			switch (choice) {
-			case 1:
-				lm.newLogIn();
-				break;
-			case 2:
-				loginResult = lm.login();
-				choice = 0;
-				break;
-			case 3:
-				System.out.println("종료합니다");
-				lm.saveUserToFile();
-				System.exit(0);
-			}
-		}
+		
+		loginResult=lm.loginStep();
 		gm.readPoketmonsFromFile();
+		
 		while (loginResult == true) {
 			switch (choice) {
 			case 0:
