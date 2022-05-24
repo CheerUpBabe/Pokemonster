@@ -1,3 +1,4 @@
+package poketmon;
 
 import java.io.*;
 import java.util.HashMap;
@@ -9,17 +10,9 @@ public class LoginManager {
 	private static LoginManager lm = new LoginManager(); // 로그인매니저를 싱글톤으로 만들려고함.
 	private LoginManager() {}//싱글톤위해서 선언.
 	
-	private String id;   //GameManager에서 포켓몬 가방을 불러올때 id를 써야하므로 광역으로 선언.
-	private String password; // password 닮을 변수.
+	public static String id;   //GameManager에서 포켓몬 가방을 불러올때 id를 써야하므로 광역으로 선언.
+	public String password; // password 닮을 변수.
 	
-	public String getId() {return id;}
-
-	public void setId(String id) {this.id = id;}
-
-	public String getPassword() {return password;}
-
-	public void setPassword(String password) {this.password = password;}
-
 	public static LoginManager getLoginManager() {
 		return lm;//싱글톤
 	}
