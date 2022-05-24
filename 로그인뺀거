@@ -1,9 +1,11 @@
+package poketmon;
+
 
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 public class GameManager {
-	
+	LoginManager lm = LoginManager.getLoginManager();
 	Map<String, List<Poketmon>> userPoketmons = new HashMap<String, List<Poketmon>>();
 	File poketmonSaveFile = new File("C:\\Temp\\PoketmonSaveFile.txt");
 	
@@ -60,7 +62,7 @@ public class GameManager {
 	}
 
 	void savePoketmonsToFile() {
-		userPoketmons.put(LoginManager.id, GameConst.poketmonBag);
+		userPoketmons.put(lm.getId(), GameConst.poketmonBag);
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 		if (!poketmonSaveFile.exists()) {
@@ -100,8 +102,8 @@ public class GameManager {
 			
 			Map<String, List<Poketmon>> tmp = (Map<String, List<Poketmon>>) ois.readObject();
 			userPoketmons = tmp;
-			if(userPoketmons.get(LoginManager.id).size()!=0) {
-				GameConst.poketmonBag=userPoketmons.get(LoginManager.id);
+			if(userPoketmons.get(lm.getId()).size()!=0) {
+				GameConst.poketmonBag=userPoketmons.get(lm.getId());
 			}
 
 		} catch (Exception e) {
