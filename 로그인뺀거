@@ -62,7 +62,7 @@ public class GameManager {
 	}
 
 	void savePoketmonsToFile() {
-		userPoketmons.put(lm.getId(), GameConst.poketmonBag);
+		userPoketmons.put(LoginManager.id, GameConst.poketmonBag);
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 		if (!poketmonSaveFile.exists()) {
@@ -102,8 +102,8 @@ public class GameManager {
 			
 			Map<String, List<Poketmon>> tmp = (Map<String, List<Poketmon>>) ois.readObject();
 			userPoketmons = tmp;
-			if(userPoketmons.get(lm.getId()).size()!=0) {
-				GameConst.poketmonBag=userPoketmons.get(lm.getId());
+			if(userPoketmons.get(LoginManager.id).size()!=0) {
+				GameConst.poketmonBag=userPoketmons.get(LoginManager.id);
 			}
 
 		} catch (Exception e) {
