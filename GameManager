@@ -1,17 +1,15 @@
+package poketmon;
 
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
-
 public class GameManager {
-
 	Map<String, String> userInfostorage = new HashMap<String, String>();
 	Map<String, List<Poketmon>> userPoketmons = new HashMap<String, List<Poketmon>>();
 	File poketmonSaveFile = new File("C:\\Temp\\PoketmonSaveFile.txt");
 	File loginSaveFile = new File("C:\\Temp\\LoginSaveFile.txt");
 	static String id;
 	static String password;
-
 	public void showBagInPokekmon() { // 가방에 담긴 포켓몬을 보여주는 메서드
 		for (int i = 0; i < GameConst.poketmonBag.size(); i++) { // arrayList의 크기만큼
 			Poketmon p = GameConst.poketmonBag.get(i); // arrayList에 담긴 내용을
@@ -21,7 +19,6 @@ public class GameManager {
 			System.out.println("빈 가방입니다.."); // 출력한다
 		}
 	}
-
 	public boolean getPoketmon(int selectType) { // 서브메뉴 출력 후 입력한 값(int)을 받아옴
 		List<Poketmon> typePoketmons = new ArrayList(); // 타입별 포켓몬을 담을 typePoketmon 리스트 생성
 		for (int i = 0; i < GameConst.poketmons.size(); i++) { // 상수로 정해둔 총 포켓몬의 수 만큼 돌면서
@@ -48,29 +45,22 @@ public class GameManager {
 			return false; // PlayGame의 case2: else문 실행
 		}
 	}
-
 	public void setPoketmon(Poketmon poketmon) {
 		GameConst.poketmonBag.add(poketmon);
 	} // 잡은 포켓몬을 가방list에 담는 메서드
-
 	public void deletePoketmon(int select) { // list에 담긴 값을 삭제하는 메서드
-
 		GameConst.poketmonBag.remove(select - 1); // 선택은 1부터 하기에 0이 아닌 -1로 설정
 	}
-
 	public int getRandomNumber(int min, int max) { // 최소값과 최대값 사이에서 랜덤한 수를 생성하는 메서드
 		return (int) ((Math.random() * (max - min)) + min);
 	}
-
 	public void selectVsMewtwo(int select) { // 뮤츠와 싸울 포켓몬을 입력받은 후 vsList에 추가 및 기존 가방에서 삭제
 		GameConst.vsList.add(GameConst.poketmonBag.get(select - 1));
 		GameConst.poketmonBag.remove(select - 1);
 	}
-
 	public int getTotalCp() { // vsList에 담긴 포켓몬의 cp를 더한 총 합
 		return (int) GameConst.vsList.stream().collect(Collectors.summarizingInt(v -> v.cp)).getSum();
 	}
-
 	public void newLogIn() {
 		while (true) {
 			System.out.println("가입할 id를 입력하세요.");
@@ -86,7 +76,6 @@ public class GameManager {
 			break;
 		}
 	}
-
 	public boolean login() {
 		int count = 0;
 		while (true) {
@@ -100,6 +89,8 @@ public class GameManager {
 					return false;
 				}
 				System.out.println("아이디가 없거나 비밀번호를 잘못입력하셨습니다.");
+				System.out.println("로그인 오류 " + (count + 1) + "회.");
+				count++;
 				return false;
 			}
 
@@ -107,12 +98,10 @@ public class GameManager {
 			return true;
 		}
 	}
-
 	void savePoketmonsToFile() {
 		userPoketmons.put(id, GameConst.poketmonBag);
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
-
 		if (!poketmonSaveFile.exists()) {
 			try {
 				poketmonSaveFile.createNewFile();
@@ -121,9 +110,7 @@ public class GameManager {
 		try {
 			fos = new FileOutputStream(poketmonSaveFile);
 			oos = new ObjectOutputStream(fos);
-
 			oos.writeObject(userPoketmons);
-
 		} catch (IOException e) {
 		} finally {
 			try {
@@ -148,6 +135,7 @@ public class GameManager {
 		try {
 			fis = new FileInputStream(poketmonSaveFile);
 			ois = new ObjectInputStream(fis);
+
 			
 			Map<String, List<Poketmon>> tmp = (Map<String, List<Poketmon>>) ois.readObject();
 			userPoketmons = tmp;
@@ -170,7 +158,6 @@ public class GameManager {
 	void saveUserToFile() {
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
-
 		if (!loginSaveFile.exists()) {
 			try {
 				loginSaveFile.createNewFile();
@@ -179,9 +166,7 @@ public class GameManager {
 		try {
 			fos = new FileOutputStream(loginSaveFile);
 			oos = new ObjectOutputStream(fos);
-
 			oos.writeObject(userInfostorage);
-
 		} catch (IOException e) {
 		} finally {
 			try {
@@ -196,7 +181,6 @@ public class GameManager {
 			}
 		}
 	}
-
 	void readUserFromFile() {
 		FileInputStream fis = null;
 		ObjectInputStream ois = null;
@@ -206,10 +190,8 @@ public class GameManager {
 		try {
 			fis = new FileInputStream(loginSaveFile);
 			ois = new ObjectInputStream(fis);
-
 			HashMap<String, String> tmp = (HashMap<String, String>) ois.readObject();
 			userInfostorage = tmp;
-
 		} catch (Exception e) {
 		} finally {
 			try {
