@@ -52,9 +52,9 @@ public class LoginManager {
 			
 			if(choice.equalsIgnoreCase("y")) {
 				System.out.println("id를 입력하세요.");
-				id = GameConst.sc.nextLine();// id 변수에 입력 아이디를 담음.
+				id = GameConst.sc.nextLine().trim();// id 변수에 입력 아이디를 담음.
 				System.out.println("password를 입력하세요.");
-				password = GameConst.sc.nextLine();// password 변수에 입력 패스워드 담음.
+				password = GameConst.sc.nextLine().trim();// password 변수에 입력 패스워드 담음.
 				if (!userInfostorage.containsKey(id) || !userInfostorage.containsValue(password)) {
 					System.out.println("아이디가 없거나 비밀번호를 잘못입력하셨습니다.");
 					return false;// userInfostorage에 아이디나 비번이 없으면 false를 반환함.
@@ -79,23 +79,23 @@ public class LoginManager {
 			
 			if(choice.equalsIgnoreCase("y")) {
 				System.out.println("가입할 id를 입력하세요.");
-				id = GameConst.sc.nextLine();
+				id = GameConst.sc.nextLine().trim();
 				if (userInfostorage.containsKey(id)) {
 					System.out.println("이미 가입된 id입니다.");
 					continue;
 				}else if(id.length()==0) {
 					while(id.length()==0) {
 						System.out.println("id를 입력하세요.");
-						id = GameConst.sc.nextLine();
+						id = GameConst.sc.nextLine().trim();
 						continue;
 					}
 				}
 				System.out.println("password를 입력하세요.");
-				password = GameConst.sc.nextLine();
+				password = GameConst.sc.nextLine().trim();
 				if(password.length()==0) {
 					while(password.length()==0) {
 						System.out.println("password를 입력하세요.");
-						password = GameConst.sc.nextLine();
+						password = GameConst.sc.nextLine().trim();
 						continue;
 					}
 				}
